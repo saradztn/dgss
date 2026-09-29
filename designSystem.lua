@@ -564,9 +564,9 @@ DGSDesignSystem = {
             md   = 12,
             lg   = 14,
             xl   = 16,
-            "2xl"  = 18,
-            "3xl"  = 22,
-            "4xl"  = 28,
+            ["2xl"]  = 18,
+            ["3xl"]  = 22,
+            ["4xl"]  = 28,
         },
         
         weights = {

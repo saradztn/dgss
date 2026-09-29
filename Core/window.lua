@@ -111,11 +111,11 @@ function dgsCreateWindow(...)
 	local sStyle = style.window
 	dgsElementData[window] = {
 		renderBuffer = {},
-		titleImage = titleImage or dgsCreateTextureFromStyle(using, res, sStyle.titleImage),
+		titleImage = (titleImage and type(titleImage) == "userdata") and titleImage or (dgsCreateTextureFromStyle(using, res, sStyle.titleImage) or nil),
 		textColor = tonumber(textColor) or sStyle.textColor,
 		titleColorBlur = tonumber(titleColor) or sStyle.titleColorBlur,
 		titleColor = tonumber(titleColor) or sStyle.titleColor,
-		image = image or dgsCreateTextureFromStyle(using, res, sStyle.image),
+		image = (image and type(image) == "userdata") and image or (dgsCreateTextureFromStyle(using, res, sStyle.image) or nil),
 		color = tonumber(color) or sStyle.color,
 		textSize = sStyle.textSize,
 		textOffset = nil,
@@ -496,22 +496,41 @@ dgsRenderer["dgs-dxwindow"] = function(source, x, y, w, h, mx, my, cx, cy, enabl
 	local font = eleData.font or style.window.font or style.systemFontElement
 
 	local img = eleData.image
+	-- Validate img is a valid texture element or nil (not a number from misassigned property)
+	if type(img) ~= "userdata" or not isElement(img) then
+		img = nil
+	end
+	
 	local color = applyColorAlpha(eleData.color, parentAlpha)
 	local isFocused = dgsIsFocused(source)
 	
-	local titsize = eleData.titleHeight
+	local titsize = eleData.titleHeight or 25
 	local titleColor = isFocused and eleData.titleColor or (eleData.titleColorBlur or eleData.titleColor)
 	titleColor = applyColorAlpha(titleColor, parentAlpha)
+
+	-- Validate titleImage
+	local titimg = eleData.titleImage
+	if type(titimg) ~= "userdata" or not isElement(titimg) then
+		titimg = nil
+	end
 
 	-- Focus animation
 	local targetFocus = isFocused and 1 or 0
 	eleData._focusAnim = (eleData._focusAnim or 0) + (targetFocus - (eleData._focusAnim or 0)) * 0.12
 
-	-- Body background
-	dxDrawImage(x, y + titsize, w, h - titsize, img, 0, 0, 0, color, isPostGUI, rndtgt)
+	-- Body background (use rectangle fallback when no image)
+	if img then
+		dxDrawImage(x, y + titsize, w, h - titsize, img, 0, 0, 0, color, isPostGUI, rndtgt)
+	else
+		dxDrawRectangle(x, y + titsize, w, h - titsize, color, isPostGUI)
+	end
 
-	-- Title bar background
-	dxDrawImage(x, y, w, titsize, eleData.titleImage, 0, 0, 0, titleColor, isPostGUI, rndtgt)
+	-- Title bar background (use rectangle fallback when no image)
+	if titimg then
+		dxDrawImage(x, y, w, titsize, titimg, 0, 0, 0, titleColor, isPostGUI, rndtgt)
+	else
+		dxDrawRectangle(x, y, w, titsize, titleColor, isPostGUI)
+	end
 
 	-- Border (modern thin border)
 	local borderColor = applyColorAlpha(eleData.borderColor or tocolor(42, 46, 58, 255), parentAlpha)

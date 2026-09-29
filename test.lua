@@ -34,7 +34,7 @@ function createDGSModernDemo()
     local tabPanel = dgsCreateTabPanel(8, 40, ww - 16, wh - 48, false, demoWindow)
     
     -- ===== BUTTONS TAB =====
-    local tabButtons = dgsCreateTab(tabPanel, "Buttons")
+    local tabButtons = dgsCreateTab("Buttons", tabPanel)
     
     local btnLabel = dgsCreateLabel(16, 16, 200, 20, "Button Variants", false, tabButtons)
     dgsSetFont(btnLabel, "default-bold")
@@ -74,7 +74,7 @@ function createDGSModernDemo()
     end)
     
     -- ===== INPUTS TAB =====
-    local tabInputs = dgsCreateTab(tabPanel, "Inputs")
+    local tabInputs = dgsCreateTab("Inputs", tabPanel)
     
     local inputLabel1 = dgsCreateLabel(16, 16, 200, 20, "Text Input", false, tabInputs)
     dgsSetFont(inputLabel1, "default-bold")
@@ -97,18 +97,18 @@ function createDGSModernDemo()
     dgsSetData(memo1, "placeHolder", "Write your message here...")
     
     -- ===== CONTROLS TAB =====
-    local tabControls = dgsCreateTab(tabPanel, "Controls")
+    local tabControls = dgsCreateTab("Controls", tabPanel)
     
     -- Checkboxes
     local cbLabel = dgsCreateLabel(16, 16, 200, 20, "Checkboxes", false, tabControls)
     dgsSetFont(cbLabel, "default-bold")
     
-    local cb1 = dgsCreateCheckBox(16, 40, 180, 24, "Enable notifications", false, tabControls)
+    local cb1 = dgsCreateCheckBox(16, 40, 180, 24, "Enable notifications", false, false, tabControls)
     dgsCheckBoxSetSelected(cb1, true)
-    local cb2 = dgsCreateCheckBox(16, 70, 180, 24, "Auto-save", false, tabControls)
+    local cb2 = dgsCreateCheckBox(16, 70, 180, 24, "Auto-save", false, false, tabControls)
     dgsCheckBoxSetSelected(cb2, true)
-    local cb3 = dgsCreateCheckBox(16, 100, 180, 24, "Show preview", false, tabControls)
-    local cb4 = dgsCreateCheckBox(16, 130, 180, 24, "Disabled option", false, tabControls)
+    local cb3 = dgsCreateCheckBox(16, 100, 180, 24, "Show preview", false, false, tabControls)
+    local cb4 = dgsCreateCheckBox(16, 130, 180, 24, "Disabled option", false, false, tabControls)
     dgsSetEnabled(cb4, false)
     
     -- Radio buttons
@@ -124,9 +124,9 @@ function createDGSModernDemo()
     local swLabel = dgsCreateLabel(16, 170, 200, 20, "Switches", false, tabControls)
     dgsSetFont(swLabel, "default-bold")
     
-    local sw1 = dgsCreateSwitchButton(16, 196, 100, 30, "ON", "OFF", false, tabControls)
+    local sw1 = dgsCreateSwitchButton(16, 196, 100, 30, "ON", "OFF", false, false, tabControls)
     dgsSwitchButtonSetState(sw1, true)
-    local sw2 = dgsCreateSwitchButton(130, 196, 100, 30, "ON", "OFF", false, tabControls)
+    local sw2 = dgsCreateSwitchButton(130, 196, 100, 30, "ON", "OFF", false, false, tabControls)
     
     -- Progress bars
     local progLabel = dgsCreateLabel(16, 240, 200, 20, "Progress Bars", false, tabControls)
@@ -144,13 +144,13 @@ function createDGSModernDemo()
     dgsSetData(prog3, "indicatorColor", tocolor(255, 82, 82, 255))
     
     -- ===== TABS TAB =====
-    local tabTabs = dgsCreateTab(tabPanel, "Tabs & Lists")
+    local tabTabs = dgsCreateTab("Tabs & Lists", tabPanel)
     
     -- Nested tab panel
     local innerTabPanel = dgsCreateTabPanel(8, 8, 300, 200, false, tabTabs)
-    local innerTab1 = dgsCreateTab(innerTabPanel, "Overview")
-    local innerTab2 = dgsCreateTab(innerTabPanel, "Settings")
-    local innerTab3 = dgsCreateTab(innerTabPanel, "Advanced")
+    local innerTab1 = dgsCreateTab("Overview", innerTabPanel)
+    local innerTab2 = dgsCreateTab("Settings", innerTabPanel)
+    local innerTab3 = dgsCreateTab("Advanced", innerTabPanel)
     
     local overviewLabel = dgsCreateLabel(16, 16, 260, 60, "This is a nested tab panel demonstrating\nthe tab component with multiple tabs.", false, innerTab1)
     dgsSetFont(overviewLabel, "default")
@@ -189,7 +189,7 @@ function createDGSModernDemo()
     local comboLabel = dgsCreateLabel(320, 220, 200, 20, "Dropdown", false, tabTabs)
     dgsSetFont(comboLabel, "default-bold")
     
-    local combo = dgsCreateComboBox(320, 244, 200, 34, false, tabTabs)
+    local combo = dgsCreateComboBox(320, 244, 200, 34, nil, false, tabTabs)
     dgsSetData(combo, "placeHolder", "Select theme...")
     dgsComboBoxAddItem(combo, "Midnight (Default)")
     dgsComboBoxAddItem(combo, "Dark")
@@ -208,7 +208,7 @@ function createDGSModernDemo()
     dgsSelectorAddItem(selector, "Ultra")
     
     -- ===== NOTIFICATIONS TAB =====
-    local tabNotif = dgsCreateTab(tabPanel, "Notifications")
+    local tabNotif = dgsCreateTab("Notifications", tabPanel)
     
     local notifLabel = dgsCreateLabel(16, 16, 300, 20, "Click buttons to show notifications", false, tabNotif)
     dgsSetFont(notifLabel, "default-bold")
@@ -246,7 +246,7 @@ function createDGSModernDemo()
     end)
     
     -- ===== BADGES & DIVIDERS TAB =====
-    local tabMisc = dgsCreateTab(tabPanel, "Badges & More")
+    local tabMisc = dgsCreateTab("Badges & More", tabPanel)
     
     local badgeLabel = dgsCreateLabel(16, 16, 200, 20, "Badges", false, tabMisc)
     dgsSetFont(badgeLabel, "default-bold")
@@ -289,7 +289,7 @@ function createDGSModernDemo()
     end
     
     -- ===== THEME TAB =====
-    local tabTheme = dgsCreateTab(tabPanel, "Themes")
+    local tabTheme = dgsCreateTab("Themes", tabPanel)
     
     local themeLabel = dgsCreateLabel(16, 16, 300, 20, "Theme Switcher", false, tabTheme)
     dgsSetFont(themeLabel, "default-bold")
