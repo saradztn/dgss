@@ -1,10 +1,16 @@
-# Ignore custom styles in the styleManager directory
-styleManager/**
-styleManager/styleMapper.lua
+# DGS - Modern DirectX GUI System
+# Git ignore rules
 
-# Except for the default style
-!styleManager/Default/
+# Ignore custom user-created styles (add your own styles in separate folders)
+# styleManager/MyCustomStyle/
 
-# Ignore the deprecated config file
-config.txt
-DGSCursor.psd
+# Ignore OS files
+.DS_Store
+Thumbs.db
+*.psd
+
+# Ignore IDE files
+*.sublime-project
+*.sublime-workspace
+.idea/
+.vscode/
